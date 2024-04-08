@@ -235,17 +235,18 @@ class TelaPrincipal : AppCompatActivity() {
         val decimalFormatado = DecimalFormat("00")
 
         val descricao = when(description) {
-            "clear Sky" -> {
-                "Céu Limpo"
-            }
+
             "few clouds" -> {
                 "Poucas Nuvens"
             }
             "scattered clouds" -> {
-                "Nublado"
+                "Nuvens Esparsas"
             }
             "broken clouds" -> {
-                "Encoberto"
+                "Nuvens Quebradas"
+            }
+            "overcast clouds" -> {
+                "Nuvens Encobertas"
             }
             "shower rain" -> {
                 "Chuva Passageira"
@@ -260,7 +261,7 @@ class TelaPrincipal : AppCompatActivity() {
                 "Neve"
             }
             "thunderstorm with light rain" -> {
-                "Trovoada com\n Chuva Fraca"
+                "Trovoada com Chuva Fraca"
             }
             "drizzle" -> {
                 "Chuva Fraca"
@@ -269,52 +270,112 @@ class TelaPrincipal : AppCompatActivity() {
                 "Névoa"
             }
             "haze" -> {
-                "Névoa"
+                "Neblina"
             }
             "fog" -> {
                 "Nevoeiro"
             }
-            "overcast clouds" -> {
-                "Nuvens Encobertas"
-            }
             "light rain" -> {
                 "Chuva Fraca"
             }
+            "heavy intensity rain" -> {
+                "Chuva Intensa"
+            }
+            "moderate rain" -> {
+                "Chuva Moderada"
+            }
+            "heavy intensity shower rain" -> {
+                "Chuva Forte"
+            }
+            "freezing rain" -> {
+                "Chuva Congelante"
+            }
+            "sleet" -> {
+                "Chuva congelada"
+            }
+            "light snow" -> {
+                "Neve Fraca"
+            }
+            "heavy snow" -> {
+                "Neve Intensa"
+            }
+            "light shower snow" -> {
+                "Neve Fraca"
+            }
+            "shower snow" -> {
+                "Neve Intensa"
+            }
+            "sand" -> {
+                "Tempestade de Areia"
+            }
+
             else -> {
                 "Céu Limpo"
             }
         }
 
-        if (mainWeather.equals("Clouds") && description.equals("few clouds")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.flewclouds)
-        } else if (mainWeather.equals("Clouds") && description.equals("scattered clouds")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.clouds)
-        } else if (mainWeather.equals("Clouds") && description.equals("broken clouds")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
-        } else if (mainWeather.equals("Clouds") && description.equals("overcast clouds")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
-        } else if (mainWeather.equals("Clear") && description.equals("clear sky")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.clearsky)
+        when (descricao) {
+            "Céu Limpo" -> binding.imagemClima.setBackgroundResource(R.drawable.clearsky)
+            "Poucas Nuvens" -> binding.imagemClima.setBackgroundResource(R.drawable.flewclouds)
+            "Nuvens Esparsas" -> binding.imagemClima.setBackgroundResource(R.drawable.clouds)
+            "Nuvens Quebradas" -> binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
+            "Nuvens Encobertas" -> binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
+            "Chuva Passageira", "Chuva", "Chuva Fraca" -> binding.imagemClima.setBackgroundResource(R.drawable.rain)
+            "Trovoada", "Tempestade" -> binding.imagemClima.setBackgroundResource(R.drawable.thunderstorm)
+            "Neve", "Neve Fraca", "Neve Intensa" -> binding.imagemClima.setBackgroundResource(R.drawable.snow)
+            "Chuva Congelante", "Chuva congelada" -> binding.imagemClima.setBackgroundResource(R.drawable.freezingrain)
+            "Neblina", "Nevoeiro", "Névoa" -> binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
+            "Tempestade de Areia" -> binding.imagemClima.setBackgroundResource(R.drawable.sandstorm)
+            else -> "" // Imagem padrão para casos desconhecidos
         }
-        else if (mainWeather.equals("Snow")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.snow)
-        } else if (mainWeather.equals("Rain") && description.equals("light rain")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.rain)
-        } else if (mainWeather.equals("Rain") && description.equals("rain")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.rain)
-        } else if (mainWeather.equals("Drizzle")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.rain)
-        } else if (mainWeather.equals("Thunderstorm")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.thunderstorm)
-        } else if (mainWeather.equals("Mist")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
-        } else if (mainWeather.equals("Haze")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
-        } else if (mainWeather.equals("Fog")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
-        } else if (mainWeather.equals("Clear")) {
-            binding.imagemClima.setBackgroundResource(R.drawable.clearsky)
+
+        /*
+        when {
+            mainWeather.equals("Clouds") && description.equals("few clouds") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.flewclouds)
+            }
+            mainWeather.equals("Clouds") && description.equals("scattered clouds") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.clouds)
+            }
+            mainWeather.equals("Clouds") && description.equals("broken clouds") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
+            }
+            mainWeather.equals("Clouds") && description.equals("overcast clouds") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
+            }
+            mainWeather.equals("Clear") && description.equals("clear sky") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.clearsky)
+            }
+            mainWeather.equals("Snow") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.snow)
+            }
+            mainWeather.equals("Rain") && description.equals("light rain") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.rain)
+            }
+            mainWeather.equals("Rain") && description.equals("rain") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.rain)
+            }
+            mainWeather.equals("Drizzle") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.rain)
+            }
+            mainWeather.equals("Thunderstorm") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.thunderstorm)
+            }
+            mainWeather.equals("Mist") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
+            }
+            mainWeather.equals("Haze") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
+            }
+            mainWeather.equals("Fog") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.brokenclouds)
+            }
+            mainWeather.equals("Clear") -> {
+                binding.imagemClima.setBackgroundResource(R.drawable.clearsky)
+            }
         }
+
+         */
 
 
         when {
@@ -992,6 +1053,81 @@ class TelaPrincipal : AppCompatActivity() {
             }
             country.equals("TG") -> {
                 pais = "Togo"
+            }
+            country.equals("TK") -> {
+                pais = "Tokelau"
+            }
+            country.equals("TO") -> {
+                pais = "Tonga"
+            }
+            country.equals("TT") -> {
+                pais = "Trindade e Tobago"
+            }
+            country.equals("TN") -> {
+                pais = "Tunísia"
+            }
+            country.equals("TR") -> {
+                pais = "Turquia"
+            }
+            country.equals("TM") -> {
+                pais = "Turcomenistão"
+            }
+            country.equals("TC") -> {
+                pais = "Turks e Caicos"
+            }
+            country.equals("TV") -> {
+                pais = "Tuvalu"
+            }
+            country.equals("UG") -> {
+                pais = "Uganda"
+            }
+            country.equals("UA") -> {
+                pais = "Ucrânia"
+            }
+            country.equals("AE") -> {
+                pais = "Emirados Árabes Unidos"
+            }
+            country.equals("GB") -> {
+                pais = "Reino Unido"
+            }
+            country.equals("UM") -> {
+                pais = "Ilhas Menores Distantes dos Estados Unidos"
+            }
+            country.equals("UY") -> {
+                pais = "Uruguai"
+            }
+            country.equals("VI") -> {
+                pais = "Ilhas Virgens Americanas"
+            }
+            country.equals("UZ") -> {
+                pais = "Uzbequistão"
+            }
+            country.equals("VU") -> {
+                pais = "Vanuatu"
+            }
+            country.equals("VA") -> {
+                pais = "Vaticano"
+            }
+            country.equals("VE") -> {
+                pais = "Venezuela"
+            }
+            country.equals("VN") -> {
+                pais = "Vietnã"
+            }
+            country.equals("WF") -> {
+                pais = "Wallis e Futuna"
+            }
+            country.equals("EH") -> {
+                pais = "Saara Ocidental"
+            }
+            country.equals("YE") -> {
+                pais = "Iêmen"
+            }
+            country.equals("ZM") -> {
+                pais = "Zâmbia"
+            }
+            country.equals("ZW") -> {
+                pais = "Zimbábue"
             }
         }
 
